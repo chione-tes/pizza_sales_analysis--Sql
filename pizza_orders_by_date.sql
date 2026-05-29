@@ -1,0 +1,15 @@
+-- Group the orders by date and calculate the average number of pizzas ordered per day
+select orders.order_date, sum(order_details.quantity)
+from orders join order_details
+on orders.order_id=order_details.order_id
+group by orders.order_date;
+
+SELECT 
+    ROUND(AVG(quantity), 0)
+FROM
+    (SELECT 
+        orders.order_date, SUM(order_details.quantity) AS quantity
+    FROM
+        orders
+    JOIN order_details ON orders.order_id = order_details.order_id
+    GROUP BY orders.order_date) AS order_quantity;
